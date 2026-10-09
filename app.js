@@ -30,8 +30,8 @@ $("generate").addEventListener("click",async()=>{
   const r=await fetch("/api/generate-voice",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,style:$("style").value,voice:$("voice").value,speed:Number($("speed").value)})});
   if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.error||`Permintaan gagal (${r.status}).`)}
   const blob=await r.blob();if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(blob);
-  $("audio").src=audioUrl;$("download").href=audioUrl;$("download").classList.remove("disabled");$("audioLabel").textContent="Audio siap diputar. Suara dibuat oleh AI.";$("status").textContent="Berhasil! Dengarkan audio atau download MP3.";
- }catch(e){$("status").textContent=`${e.message} Pastikan backend sudah dideploy dan OPENAI_API_KEY diatur di hosting.`}
+  $("audio").src=audioUrl;$("download").href=audioUrl;$("download").classList.remove("disabled");$("audioLabel").textContent="Audio siap diputar. Suara dibuat oleh Gemini AI.";$("status").textContent="Berhasil! Dengarkan audio atau download WAV.";
+}catch(e){$("status").textContent=`${e.message} Pastikan backend sudah dideploy dan GEMINI_API_KEY diatur di Vercel.`}
  finally{$("generate").disabled=false;$("generate").textContent="🎙️ GENERATE VO"}
 });
 updateCount();
